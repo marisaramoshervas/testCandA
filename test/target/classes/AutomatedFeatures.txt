@@ -1,0 +1,64 @@
+Feature: Automation test Register & Login C and A
+
+  Scenario: Part1.Scenario 1.Register into shop.
+    Given I navigate to next url and go to the Personal Area
+    |https://www.c-and-a.com/es/es/shop|
+    When I fill the form with the following data:
+    | Title    | Email                       | Name      | Password |Consent |
+    | Other    | testcandamrh@gmail.com      | TestName  | p4$$w0Rd |true    |
+    Then the register is succesful
+
+
+  Scenario: Part2.Scenario 1. Login into shop with username and password.
+    Given I navigate to next url and go to the Personal Area
+      |https://www.c-and-a.com/es/es/shop|
+    When I fill the login form with the following data:
+      | Email                   | Password |
+      | testcandamrh@gmail.com  | p4$$w0Rd |
+    And I submit with the Enter button the login is succesful and the profile is loaded
+
+   Scenario: Part2.Scenario 2. Login into shop with invalid email
+    Given I navigate to next url and go to the Personal Area
+      |https://www.c-and-a.com/es/es/shop|
+    When I fill the login form with the following data:
+      | Email                   | Password |
+      | wrong13                 | p4$$w0Rd |
+    And I submit with the Enter button the login show a message about the invalid
+    email format
+    
+   Scenario: Part2.Scenario 3. Login into shop with invalid password
+    Given I navigate to next url and go to the Personal Area
+      |https://www.c-and-a.com/es/es/shop|
+    When I fill the login form with the following data:
+      | Email                   | Password |
+      | testcandamrh@gmail.com  | pA$$w0Rd |
+    And I submit with the Enter button the login show a message about the invalid
+    password and ask you to retry
+    
+   Scenario: Part2.Scenario 4. Login into shop with empty password
+    Given I navigate to next url and go to the Personal Area
+      |https://www.c-and-a.com/es/es/shop|
+    When I fill the login form with the following data:
+      | Email                   | Password |
+      | testcandamrh@gmail.com  |     -    |
+    And I submit with the Enter button the login show a tooltip warning about
+    the empty password
+  
+
+Notes
+=====
+
+- The driver used is chromedriver.exe, but in the same folder is the driver for Firefox.
+To use it we just need to change the line:
+
+System.setProperty("webdriver.chrome.driver", resourceFolder + "/chromedriver.exe"); to
+
+System.setProperty("webdriver.firefox.driver", resourceFolder + "/geckodriver.exe");
+
+- The other .jar in the folder is used in case we can add functionality to the driver if it doesn't work.
+It's needed to open a cmd in the folder of the installation and run the jar as 
+java -jar webdrivermanager-fat-5.0.3.jar resolveDriverFor edge (for each driver, chrome, firefox and edge)
+
+
+readme.md
+clean test (install)
